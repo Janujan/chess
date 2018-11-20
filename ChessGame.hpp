@@ -20,6 +20,7 @@ private:
     int turn_count = 0;
     int check_status = 0;
 public:
+    //Created a public struct to use for standardizing location
     struct _loc{
         char col;
         int row;
