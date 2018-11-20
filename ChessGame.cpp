@@ -14,10 +14,18 @@ ChessGame::ChessGame(std::string player_black, std::string player_white)
     white = new Player(player_white);
 }
 
-
-void ChessGame::move(char piece, _loc loc)
+/*
+ Move has to occur, where input is taken from players
+ then move function should state whether move was valid or not
+ once move is made, game status needs to be updated on whether checkmate occured
+ checkmate can only occur IF check occurs, so build into that logic
+ */
+void ChessGame::move(std::tuple<std::string, std::string, int> player_move)
 {
-    std::cout<<"Move piece " << piece << " to " << loc.col << loc.row << std::endl;
+    std::string piece = std::get<0>(player_move);
+    std::string col = std::get<1>(player_move);
+    int row = std::get<2>(player_move);
+    std::cout<<"Move piece " << piece << " to " << col << row << std::endl;
 }
 
 void ChessGame::printBoard()
@@ -51,4 +59,53 @@ void ChessGame::printPieceStatus()
     {
         std::cout << "Piece " << i + 1 << " " << piece_status[i] << std::endl;
     }
+}
+
+//Moves are comma delimited
+std::tuple<std::string, std::string, int> ChessGame::readMove()
+{
+    std::cout << "What is your move? format ( string piece, char column, int row )" << std::endl;
+    
+    std::string piece = "kn";
+    std::string col = "a";
+    int row = 1;
+    
+    std::string userInput;
+    std::cin>> userInput;
+    
+    std::string delim = ",";
+    piece  = userInput.substr(0, userInput.find(delim));
+    userInput.erase(0, userInput.find(delim) + delim.length());
+    
+    col = userInput.substr(0, userInput.find(delim));
+    userInput.erase(0, userInput.find(delim) + delim.length());
+    
+    row = std::stoi(userInput);
+    
+    
+    return std::make_tuple(piece, col, row);
+}
+
+
+//Controller function to begin game
+//White moves first
+
+int ChessGame::chessGameStart(ChessGame *ch)
+{
+    std::cout <<"Player " << ch->white->getName() << " will start first" << std::endl;
+    
+    
+    std::tuple<std::string, std::string, int> player_move = ch->readMove();
+    ch->move(player_move);
+    
+    
+    /*
+    //keep game going until game is finished
+    while(!game_status)
+    {
+        
+    }
+    return 1;
+     */
+    return 1;
 }

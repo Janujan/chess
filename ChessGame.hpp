@@ -19,14 +19,12 @@ private:
     Player *white;
     int turn_count = 0;
     int check_status = 0;
+    int game_status = 0;
 public:
-    //Created a public struct to use for standardizing location
-    struct _loc{
-        char col;
-        int row;
-    } loc;
     ChessGame(std::string player_black, std::string player_white);
-    void move(char piece, _loc location);
+    int chessGameStart(ChessGame *ch);
+    std::tuple<std::string , std::string , int> readMove();
+    void move(std::tuple<std::string, std::string, int> player_move);
     void printBoard();
     int turnCount();
     int checkStatus();

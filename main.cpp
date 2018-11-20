@@ -24,10 +24,6 @@ int main()
     ch->printBoard();
     ch->printPieceStatus();
     
-    ChessGame::_loc *move = (ChessGame::_loc *)malloc(sizeof(ChessGame::_loc));
-    move->col = 'a';
-    move->row = 1;
-    
-    ch->move('r', *move);
+    ch->chessGameStart(ch);
     return 0;
 }
