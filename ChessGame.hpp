@@ -20,8 +20,12 @@ private:
     int turn_count = 0;
     int check_status = 0;
 public:
+    struct _loc{
+        char col;
+        int row;
+    } loc;
     ChessGame(std::string player_black, std::string player_white);
-    void move(char piece, int loc);
+    void move(char piece, _loc location);
     void printBoard();
     int turnCount();
     int checkStatus();

@@ -15,9 +15,9 @@ ChessGame::ChessGame(std::string player_black, std::string player_white)
 }
 
 
-void ChessGame::move(char piece, int loc)
+void ChessGame::move(char piece, _loc loc)
 {
-    std::cout<<"Move piece " << piece << " to " << loc << std::endl;
+    std::cout<<"Move piece " << piece << " to " << loc.col << loc.row << std::endl;
 }
 
 void ChessGame::printBoard()
