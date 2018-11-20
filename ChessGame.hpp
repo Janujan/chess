@@ -25,6 +25,7 @@ public:
     void printBoard();
     int turnCount();
     int checkStatus();
+    void printPieceStatus();
 };
 
 

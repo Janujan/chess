@@ -11,19 +11,19 @@
 #include <stdlib.h>
 #include <iostream>
 #include "player.hpp"
+#include "ChessGame.hpp"
 
 using namespace std;
 int main()
 {
-    string name = "Jay";
-    Player P = Player(name);
+    string player_black = "Jay";
+    string player_white = "Sunny";
     
-    cout <<"Player Name: " << P.getName() << endl;
+    ChessGame *ch = new ChessGame(player_black, player_white);
     
-    vector<int> piece_status = P.getPieces();
-    for(int i = 0; i < PIECE_NUM; i++)
-    {
-        cout << "Piece " << i + 1 << " " << piece_status[i] << endl;
-    }
+    ch->printBoard();
+    ch->printPieceStatus();
+    
+
     return 0;
 }

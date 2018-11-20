@@ -34,3 +34,21 @@ int ChessGame::checkStatus()
 {
     return check_status;
 }
+
+void ChessGame::printPieceStatus()
+{
+    
+    std::vector<int> piece_status = black->getPieces();
+    std::cout<<"Player "<< black->getName() << std::endl;
+    for(int i = 0; i < PIECE_NUM; i++)
+    {
+        std::cout << "Piece " << i + 1 << " " << piece_status[i] << std::endl;
+    }
+    
+    piece_status = white->getPieces();
+    std::cout<<"Player " << white->getName() << std::endl;
+    for(int i = 0; i < PIECE_NUM; i++)
+    {
+        std::cout << "Piece " << i + 1 << " " << piece_status[i] << std::endl;
+    }
+}
