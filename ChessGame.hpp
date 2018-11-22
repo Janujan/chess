@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "player.hpp"
+#include "ChessBoard.hpp"
 #include <string>
 #include <iostream>
 class ChessGame{
@@ -20,6 +21,8 @@ private:
     int turn_count = 0;
     int check_status = 0;
     int game_status = 0;
+    ChessBoard *chb;
+    
 public:
     ChessGame(std::string player_black, std::string player_white);
     int chessGameStart(ChessGame *ch);

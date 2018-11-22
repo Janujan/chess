@@ -12,6 +12,7 @@ ChessGame::ChessGame(std::string player_black, std::string player_white)
 {
     black = new Player(player_black);
     white = new Player(player_white);
+    chb = new ChessBoard();
 }
 
 /*
@@ -31,6 +32,7 @@ void ChessGame::move(std::tuple<std::string, std::string, int> player_move)
 void ChessGame::printBoard()
 {
     std::cout<<"Printing Board"<< std::endl;
+    chb->printBoard();
 }
 
 int ChessGame::turnCount()
@@ -95,9 +97,9 @@ int ChessGame::chessGameStart(ChessGame *ch)
     std::cout <<"Player " << ch->white->getName() << " will start first" << std::endl;
     
     
-    std::tuple<std::string, std::string, int> player_move = ch->readMove();
-    ch->move(player_move);
-    
+    //std::tuple<std::string, std::string, int> player_move = ch->readMove();
+    //ch->move(player_move);
+    ch->printBoard();
     
     /*
     //keep game going until game is finished
@@ -105,7 +107,7 @@ int ChessGame::chessGameStart(ChessGame *ch)
     {
         
     }
-    return 1;
+    return 1;kn
      */
     return 1;
 }
