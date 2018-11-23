@@ -12,14 +12,17 @@
 #include <vector>
 #include <iostream>
 #include <map>
+#include "player.hpp"
 #define COL 8
 #define ROW 8
 class ChessBoard{
 private:
-    typedef std::vector<char> row;
+    typedef std::vector<std::string> row;
     std::vector< row > chessboard;
     std::map<int, char> row_pair;
     std::map<int,char>::iterator itr;
+    std::vector<std::string> pieces;
+    void initPieces();
 
 public:
     ChessBoard();

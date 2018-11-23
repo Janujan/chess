@@ -23,7 +23,7 @@ public:
     Player(std::string player_name = "w");
     std::vector<int> getPieces();
     std::string getName();
-    enum Piece{p1, p2, p3, p4, p5, p6, p7, p8, kn1, kn2, b1, b2, r1, r2, queen, king };
+    enum Piece{p1, p2, p3, p4, p5, p6, p7, p8, k1, k2, b1, b2, r1, r2, qu, ki };
 };
 
 #endif /* player_hpp */
