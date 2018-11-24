@@ -18,14 +18,20 @@
 class ChessBoard{
 private:
     typedef std::vector<std::string> row;
+    
+    //piece, row, col
+    typedef std::tuple<std::string, int, int> status;
     std::vector< row > chessboard;
     std::map<int, char> row_pair;
     std::map<int,char>::iterator itr;
     std::vector<std::string> pieces;
     void initPieces();
-
+    std::vector<status> piece_status_w, piece_status_b;
+    void printPieces();
 public:
     ChessBoard();
     void printBoard();
+    int isEmpty(int col, int row);
+    int move(std::string piece, int col, int row);
 };
 #endif /* ChessBoard_hpp */

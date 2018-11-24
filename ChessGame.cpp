@@ -24,9 +24,26 @@ ChessGame::ChessGame(std::string player_black, std::string player_white)
 void ChessGame::move(std::tuple<std::string, std::string, int> player_move)
 {
     std::string piece = std::get<0>(player_move);
-    std::string col = std::get<1>(player_move);
-    int row = std::get<2>(player_move);
-    std::cout<<"Move piece " << piece << " to " << col << row << std::endl;
+    std::string row = std::get<1>(player_move);
+    int col = std::get<2>(player_move);
+    
+    //Convert col to a column index (assuming row is lower case)
+    int row_int = int(row.at(0)) - 97;
+    
+    int loc_status = chb->isEmpty(row_int, col);
+    
+    switch(loc_status)
+    {
+        case 1:
+            std::cout<<"Move piece " << piece << " to " << row << col << std::endl;
+            chb->move(piece, col, row_int);
+        case -1:
+            std::cout<<"Please make a valid move" << std::endl;
+        default:
+            std::cout<<"Location is not Empty"<<std::endl;
+            std::cout<<"ROW " << row << "("<< row_int << ") " <<  "COL " << col << std::endl;
+            
+    }
 }
 
 void ChessGame::printBoard()
@@ -64,28 +81,29 @@ void ChessGame::printPieceStatus()
 }
 
 //Moves are comma delimited
+//Convert col to lower
 std::tuple<std::string, std::string, int> ChessGame::readMove()
 {
     std::cout << "What is your move? format ( string piece, char column, int row )" << std::endl;
     
     std::string piece = "kn";
-    std::string col = "a";
-    int row = 1;
+    std::string row = "c";
+    int col = 1;
     
-    std::string userInput;
-    std::cin>> userInput;
+//    std::string userInput;
+//    std::cin>> userInput;
+//
+//    std::string delim = ",";
+//    piece  = userInput.substr(0, userInput.find(delim));
+//    userInput.erase(0, userInput.find(delim) + delim.length());
+//
+//    col = userInput.substr(0, userInput.find(delim));
+//    userInput.erase(0, userInput.find(delim) + delim.length());
+//
+//    row = std::stoi(userInput);
     
-    std::string delim = ",";
-    piece  = userInput.substr(0, userInput.find(delim));
-    userInput.erase(0, userInput.find(delim) + delim.length());
     
-    col = userInput.substr(0, userInput.find(delim));
-    userInput.erase(0, userInput.find(delim) + delim.length());
-    
-    row = std::stoi(userInput);
-    
-    
-    return std::make_tuple(piece, col, row);
+    return std::make_tuple(piece, row, col);
 }
 
 
@@ -97,8 +115,8 @@ int ChessGame::chessGameStart(ChessGame *ch)
     std::cout <<"Player " << ch->white->getName() << " will start first" << std::endl;
     
     
-    //std::tuple<std::string, std::string, int> player_move = ch->readMove();
-    //ch->move(player_move);
+    std::tuple<std::string, std::string, int> player_move = ch->readMove();
+    ch->move(player_move);
     ch->printBoard();
     
     /*
