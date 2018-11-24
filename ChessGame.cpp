@@ -34,18 +34,18 @@ int ChessGame::checkStatus()
 void ChessGame::printPieceStatus()
 {
     
-    std::vector<int> piece_status = black->getPieces();
+    //std::vector<int> piece_status = black->getPieces();
     std::cout<<"Player "<< black->getName() << std::endl;
     for(int i = 0; i < PIECE_NUM; i++)
     {
-        std::cout << "Piece " << i + 1 << " " << piece_status[i] << std::endl;
+        //std::cout << "Piece " << i + 1 << " " << piece_status[i] << std::endl;
     }
     
-    piece_status = white->getPieces();
+    //piece_status = white->getPieces();
     std::cout<<"Player " << white->getName() << std::endl;
     for(int i = 0; i < PIECE_NUM; i++)
     {
-        std::cout << "Piece " << i + 1 << " " << piece_status[i] << std::endl;
+        //std::cout << "Piece " << i + 1 << " " << piece_status[i] << std::endl;
     }
 }
 
@@ -87,6 +87,13 @@ void ChessGame::move(std::tuple<std::string, std::string, int> player_move, int 
     std::string row = std::get<1>(player_move);
     int col = std::get<2>(player_move);
     
+    auto player_check = (player == 0) ? white:black;
+    int validPiece = player_check->validPiece(piece);
+    if(!validPiece)
+    {
+        std::cout<<"Not a valid Piece"<<std::endl;
+        return;
+    }
     //Convert col to a column index (assuming row is lower case)
     int row_int = int(row.at(0)) - 97;
     
@@ -119,9 +126,7 @@ int ChessGame::chessGameStart(ChessGame *ch)
     
     std::tuple<std::string, std::string, int> player_move = ch->readMove();
     ch->move(player_move, player);
-    ch->printBoard();
-    ch->move(std::make_tuple("k1", "g", 3), 0);
-    ch->printBoard();
+    test_move(ch);
     /*
     //keep game going until game is finished
     while(!game_status)
@@ -131,4 +136,17 @@ int ChessGame::chessGameStart(ChessGame *ch)
     return 1;kn
      */
     return 1;
+}
+
+
+void ChessGame::test_move(ChessGame *ch){
+    std::cout<<std::endl<< std::endl <<"TESTING CHESSGAME::MOVE FUNCTIONALITY" << std::endl <<std::endl;
+    ch->move(std::make_tuple("k1", "f", 5), 0);
+    ch->printBoard();
+    ch->move(std::make_tuple("k1", "g", 3), 0);
+    ch->printBoard();
+    ch->move(std::make_tuple("k1", "l", 2), 0);
+    ch->move(std::make_tuple("k1", "e", 10), 0);
+    ch->move(std::make_tuple("k3", "f", 5), 0);
+    ch->printBoard();
 }

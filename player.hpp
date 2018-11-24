@@ -17,13 +17,14 @@
 #define PIECE_NUM 16
 class Player{
 private:
+    typedef std::pair<std::string, int> piece;
     std::string name;
-    std::vector<int> piece_status;
+    std::vector<piece> piece_status;
 public:
     Player(std::string player_name = "w");
-    std::vector<int> getPieces();
+    std::vector<std::string> pieceNames();
+    int validPiece(std::string piece);
     std::string getName();
-    enum Piece{p1, p2, p3, p4, p5, p6, p7, p8, k1, k2, b1, b2, r1, r2, qu, ki };
 };
 
 #endif /* player_hpp */

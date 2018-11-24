@@ -22,6 +22,7 @@ private:
     int check_status = 0;
     int game_status = 0;
     ChessBoard *chb;
+    void test_move(ChessGame *ch);
     
 public:
     ChessGame(std::string player_black, std::string player_white);
