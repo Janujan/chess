@@ -27,7 +27,7 @@ public:
     ChessGame(std::string player_black, std::string player_white);
     int chessGameStart(ChessGame *ch);
     std::tuple<std::string , std::string , int> readMove();
-    void move(std::tuple<std::string, std::string, int> player_move);
+    void move(std::tuple<std::string, std::string, int> player_move, int player);
     void printBoard();
     int turnCount();
     int checkStatus();

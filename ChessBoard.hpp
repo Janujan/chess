@@ -25,13 +25,16 @@ private:
     std::map<int, char> row_pair;
     std::map<int,char>::iterator itr;
     std::vector<std::string> pieces;
-    void initPieces();
     std::vector<status> piece_status_w, piece_status_b;
-    void printPieces();
+
+    void initPieces();
+    void updateBoard(std::string piece, int prev_row, int prev_col);
 public:
     ChessBoard();
     void printBoard();
     int isEmpty(int col, int row);
-    int move(std::string piece, int col, int row);
+    std::pair<int,int> move(std::string piece, int col, int row, int player);
+    void printPieces();
+
 };
 #endif /* ChessBoard_hpp */

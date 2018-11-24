@@ -22,7 +22,7 @@ int main()
     ChessGame *ch = new ChessGame(player_black, player_white);
     
     ch->printBoard();
-    ch->printPieceStatus();
+    //ch->printPieceStatus();
     
     ch->chessGameStart(ch);
     return 0;

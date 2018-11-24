@@ -15,37 +15,6 @@ ChessGame::ChessGame(std::string player_black, std::string player_white)
     chb = new ChessBoard();
 }
 
-/*
- Move has to occur, where input is taken from players
- then move function should state whether move was valid or not
- once move is made, game status needs to be updated on whether checkmate occured
- checkmate can only occur IF check occurs, so build into that logic
- */
-void ChessGame::move(std::tuple<std::string, std::string, int> player_move)
-{
-    std::string piece = std::get<0>(player_move);
-    std::string row = std::get<1>(player_move);
-    int col = std::get<2>(player_move);
-    
-    //Convert col to a column index (assuming row is lower case)
-    int row_int = int(row.at(0)) - 97;
-    
-    int loc_status = chb->isEmpty(row_int, col);
-    
-    switch(loc_status)
-    {
-        case 1:
-            std::cout<<"Move piece " << piece << " to " << row << col << std::endl;
-            chb->move(piece, col, row_int);
-        case -1:
-            std::cout<<"Please make a valid move" << std::endl;
-        default:
-            std::cout<<"Location is not Empty"<<std::endl;
-            std::cout<<"ROW " << row << "("<< row_int << ") " <<  "COL " << col << std::endl;
-            
-    }
-}
-
 void ChessGame::printBoard()
 {
     std::cout<<"Printing Board"<< std::endl;
@@ -86,9 +55,9 @@ std::tuple<std::string, std::string, int> ChessGame::readMove()
 {
     std::cout << "What is your move? format ( string piece, char column, int row )" << std::endl;
     
-    std::string piece = "kn";
+    std::string piece = "k1";
     std::string row = "c";
-    int col = 1;
+    int col = 4;
     
 //    std::string userInput;
 //    std::cin>> userInput;
@@ -106,6 +75,39 @@ std::tuple<std::string, std::string, int> ChessGame::readMove()
     return std::make_tuple(piece, row, col);
 }
 
+/*
+ Move has to occur, where input is taken from players
+ then move function should state whether move was valid or not
+ once move is made, game status needs to be updated on whether checkmate occured
+ checkmate can only occur IF check occurs, so build into that logic
+ */
+void ChessGame::move(std::tuple<std::string, std::string, int> player_move, int player)
+{
+    std::string piece = std::get<0>(player_move);
+    std::string row = std::get<1>(player_move);
+    int col = std::get<2>(player_move);
+    
+    //Convert col to a column index (assuming row is lower case)
+    int row_int = int(row.at(0)) - 97;
+    
+    int loc_status = chb->isEmpty(col, row_int);
+    
+    switch(loc_status)
+    {
+        case 1:
+            std::cout<<"Move piece " << piece << " to " << row << col << std::endl;
+            chb->move(piece, col, row_int, player);
+            break;
+        case -1:
+            std::cout<<"Please make a valid move" << std::endl;
+            break;
+        case 0:
+            std::cout<<"Location is not Empty"<<std::endl;
+            std::cout<<"ROW " << row << "("<< row_int << ") " <<  "COL " << col << std::endl;
+            break;
+            
+    }
+}
 
 //Controller function to begin game
 //White moves first
@@ -113,12 +115,13 @@ std::tuple<std::string, std::string, int> ChessGame::readMove()
 int ChessGame::chessGameStart(ChessGame *ch)
 {
     std::cout <<"Player " << ch->white->getName() << " will start first" << std::endl;
-    
+    int player = 0;
     
     std::tuple<std::string, std::string, int> player_move = ch->readMove();
-    ch->move(player_move);
+    ch->move(player_move, player);
     ch->printBoard();
-    
+    ch->move(std::make_tuple("k1", "g", 3), 0);
+    ch->printBoard();
     /*
     //keep game going until game is finished
     while(!game_status)

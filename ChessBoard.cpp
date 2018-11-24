@@ -76,7 +76,6 @@ void ChessBoard::printBoard()
     }
     std::cout<< "   1  2  3  4  5  6  7  8" << std::endl;
     
-    printPieces();
 }
 
 //vector to hold the major pieces
@@ -95,7 +94,7 @@ void ChessBoard::initPieces()
 //Return whether the location is empty or not
 int ChessBoard::isEmpty(int col, int row)
 {
-    int is_empty = 1;
+    int is_empty = 0;
     if(col >= COL || row >= ROW || col < 0 || row < 0)
     {
         std::cout<<"Location out of bounds"<<std::endl;
@@ -103,11 +102,10 @@ int ChessBoard::isEmpty(int col, int row)
         return -1;
     }
     else{
-        if(chessboard[col][row] != " x")
+        if(chessboard[col][row] == " x")
         {
-            is_empty = 0;
+            is_empty = 1;
         }
-
         return is_empty;
     }
 }
@@ -140,8 +138,48 @@ void ChessBoard::printPieces()
 }
 //add logic to this for making move once move call is made by chessgame object
 //This function will only be called if the piece is located on the board (not captured)
-int ChessBoard::move(std::string piece, int col, int row)
+std::pair<int,int> ChessBoard::move(std::string piece, int col, int row, int player)
 {
+    int prev_row;
+    int prev_col;
+    int idx = 0;
+    int flag = 1;
     
-    return 0;
+    auto &piece_set = (player == 0) ? piece_status_w : piece_status_b;
+    while(flag && (idx < 16))
+    {
+        if(std::get<0>(piece_set[idx]) == piece)
+        {
+            flag = 0;
+        }
+        else{
+            idx++;
+        }
+    }
+    
+    prev_row = std::get<1>(piece_set[idx]);
+    prev_col = std::get<2>(piece_set[idx]);
+    
+
+    piece_set[idx] = std::make_tuple(piece, row, col);
+    
+    updateBoard(piece, prev_row, prev_col);
+    return std::make_pair(prev_row, prev_col);
+}
+
+//update piece that was moved, along with making prev location empty
+void ChessBoard::updateBoard(std::string piece, int prev_row, int prev_col)
+{
+    int idx = 0;
+    
+    while(std::get<0>(piece_status_w[idx]) != piece)
+    {
+        idx++;
+    }
+    
+    int row = std::get<1>(piece_status_w[idx]);
+    int col = std::get<2>(piece_status_w[idx]);
+    
+    chessboard[col][row] = piece;
+    chessboard[prev_col][prev_row] = " x";
 }
